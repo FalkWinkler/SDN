@@ -16,6 +16,14 @@ function DownloadFileOverHttps()
         return
     }
 
+    $destinationDir = Split-Path -Path $DestinationPath
+
+    if(!Test-Path $destinationDir)
+    {
+        Write-Host "Create destination directory $destinationDir"
+        md $destinationDir -ErrorAction Ignore
+    }
+
     $secureProtocols = @()
     $insecureProtocols = @([System.Net.SecurityProtocolType]::SystemDefault, [System.Net.SecurityProtocolType]::Ssl3)
 
